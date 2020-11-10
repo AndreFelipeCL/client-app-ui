@@ -3,18 +3,18 @@
     <li class="breadcrumb-item active">Cadastro</li>
 </ol>
 <div class="container">
-    <form>
+    <form #clientForm="ngForm" (ngSubmit)="onSubmit()" >
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="input-id">ID:</label>
-                    <input type="text" name="input-id" class="form-control" disabled="true" />
+                    <input type="text" [ngModel]="client.id" name="input-id" id="input-id" class="form-control" disabled="true" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="input-createDate">Data de Cadastro:</label>
-                    <input type="date" name="input-createDate" class="form-control" disabled="true" />
+                    <input type="text" [ngModel]="client.createdDate" name="input-createDate" id="input-createDate" class="form-control" disabled="true" />
                 </div>
             </div>
         </div>
@@ -22,21 +22,21 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="input-name">Nome: *</label>
-                    <input type="text" name="input-name" class="form-control" />
+                    <label for="client-name">Nome: *</label>
+                    <input type="text" [(ngModel)]="client.name" name="client-name" class="form-control" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="input-cpf">CPF: *</label>
-                    <input type="text" name="input-cpf" class="form-control" />
+                    <label for="cpf">CPF: *</label>
+                    <input type="text" [(ngModel)]="client.cpf" name="client-cpf" class="form-control" />
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-2">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success" >
                     <i class="fa fa-save"></i> Salvar
                 </button>
             </div>
