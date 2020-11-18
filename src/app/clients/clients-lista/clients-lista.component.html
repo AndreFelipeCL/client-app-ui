@@ -1,0 +1,55 @@
+<h1 class="mt-4">Clientes</h1>
+<ol class="breadcrumb mb-4">
+	<li class="breadcrumb-item active">Listagem</li>
+</ol>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<button class="btn btn-outline-primary" (click)="newClient()">
+				<i class="fa fa-user-plus"></i>
+				Novo Cadastro
+			</button>
+		</div>
+		<br /><br />
+		<div class="col-md-12 table-responsive">
+			<table class="table table-sm table-hover">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Nome</th>
+						<th scope="col">CPF</th>
+						<th scope="col">Data de Cadastro</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody *ngFor="let client of clients">
+					<tr>
+						<th scope="row">{{client.id}}</th>
+						<td>{{client.name}}</td>
+						<td>{{client.cpf}}</td>
+						<td>{{client.createdDate}}</td>
+						<td>
+							<div class="dropdown">
+								<button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
+									id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">
+									Ações
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<button type="button" class="dropdown-item" (click)="edit(client.id)">
+										<i class="fa fa-user-edit"></i>
+										Editar
+									</button>
+									<button type="button" class="dropdown-item">
+										<i class="fa fa-user-minus"></i>
+										Deletar
+									</button>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

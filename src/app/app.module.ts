@@ -5,11 +5,12 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ClientsService } from './clients.service';
+import { ClientsService } from './services/clients.service';
+import { ClientsModule } from './clients/clients.module';
 
 import { TemplateModule } from './template/template.module';
 import { HomeComponent } from './home/home.component';
-import { ClientsModule } from './clients/clients.module';
+
 
 @NgModule({
   declarations: [

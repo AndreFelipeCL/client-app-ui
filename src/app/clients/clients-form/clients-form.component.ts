@@ -1,29 +1,84 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientsService } from '../../clients.service';
-import { Client } from '../client';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { Client } from 'src/app/models/client';
+import { ClientsService } from '../../services/clients.service';
 
 @Component({
-  selector: 'app-clients-form',
-  templateUrl: './clients-form.component.html',
-  styleUrls: ['./clients-form.component.css']
+	selector: 'app-clients-form',
+	templateUrl: './clients-form.component.html',
+	styleUrls: ['./clients-form.component.css']
 })
 export class ClientsFormComponent implements OnInit {
 
-  client: Client;
+	client: Client = new Client();
+	success: boolean = false;
+	errors: string[] = [];
 
-  constructor(private service: ClientsService) {
-    this.client = service.getClient();
-  }
+	constructor(
+		private service: ClientsService,
+		private router: Router,
+		private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
-  }
 
-  onSubmit() {
-    this.service
-    .save(this.client)
-    .subscribe(response => {
-      console.log(response);
-    });
-  }
+	ngOnInit(): void {
+		let params: Observable<Params> = this.activatedRoute.params;
 
+		params.subscribe(pathParameter => {
+			if (pathParameter.id) {
+				this.service.findById(pathParameter.id)
+					.subscribe(
+						response => { this.client = response; },
+						errorResponse => { this.client = new Client() }
+					);
+			}
+		});
+	}
+
+	onSubmit() {
+		if (this.client.id) {
+			this.editClient(this.client);
+		} else {
+			this.saveNewClient(this.client);
+		}
+	}
+
+	private editClient(client: Client): void {
+		this.service.edit(this.client)
+		.subscribe(
+			response => {
+				this.client = response;
+				this.success = true;
+				this.errors = [];
+				this.returtToList();
+			},
+			errorResponse => {
+				console.error(errorResponse);
+				this.errors = ['Erro ao atualizar o client.'];
+				this.success = false;
+			}
+		);
+	}
+
+	private saveNewClient(client: Client): void {
+		this.service.save(this.client)
+			.subscribe(
+				response => {
+					this.success = true;
+					this.client = response;
+					this.errors = [];
+					this.returtToList();
+				},
+				errorResponse => {
+					console.error(errorResponse);
+					this.errors = errorResponse.error.errors;
+					this.success = false;
+				}
+			);
+	}
+
+	returtToList() {
+		this.router.navigate(['/clients-list']);
+	}
 }
