@@ -19,6 +19,10 @@ export class ClientsService {
     return this.http.put<Client>(`http://localhost:8090/client/${client.id}`, client);
   }
 
+  delete(client: Client): Observable<any> {
+    return this.http.delete<number>(`http://localhost:8090/client/${client.id}`);
+  }
+
   findAll(): Observable<Client[]> {
     return this.http.get<Client[]>('http://localhost:8090/client/all');
   }

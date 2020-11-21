@@ -12,16 +12,23 @@ import { ClientsService } from 'src/app/services/clients.service';
 export class ClientsListaComponent implements OnInit {
 
 	clients: Client[] = [];
+	clientToDelete: Client;
+	mensagemSucesso: string;
+	mensagemErro: string;
 
 	constructor(
 		private service: ClientsService,
 		private router: Router) { }
 
 	ngOnInit(): void {
+		this.findAll();
+	}
+
+	private findAll() {
 		this.service.findAll()
 			.subscribe(
 				response => { this.clients = response; },
-				errorResponse => { this.clients = [] }
+				responseError => { this.clients = [] }
 			);
 	}
 
@@ -31,6 +38,25 @@ export class ClientsListaComponent implements OnInit {
 
 	edit(id: number) {
 		this.router.navigate([`/clients-form/${id}`]);
+	}
+
+	prepareConfirmDeleteModal(client: Client) {
+		this.clientToDelete = client;
+	}
+
+	delete(client: Client) {
+		this.service.delete(client)
+			.subscribe(
+				response => { 
+					this.findAll(); 
+					this.mensagemSucesso = "Cliente deletado com sucesso."
+				},
+				responseError => {
+					this.findAll(); 
+					console.log(responseError);
+					this.mensagemErro = "Ocorreu um erro ao deletar o cliente."
+				}
+			);
 	}
 
 }

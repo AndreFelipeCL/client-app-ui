@@ -3,14 +3,30 @@
 	<li class="breadcrumb-item active">Listagem</li>
 </ol>
 <div class="container">
+	
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-12">
+			<div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
+				<span>{{ mensagemSucesso }}</span>
+			</div>
+			<div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+				<span>{{ mensagemErro }}</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
 			<button class="btn btn-outline-primary" (click)="newClient()">
 				<i class="fa fa-user-plus"></i>
 				Novo Cadastro
 			</button>
 		</div>
-		<br /><br />
+	</div>
+
+	<br />
+
+	<div class="row">
 		<div class="col-md-12 table-responsive">
 			<table class="table table-sm table-hover">
 				<thead class="thead-light">
@@ -40,7 +56,8 @@
 										<i class="fa fa-user-edit"></i>
 										Editar
 									</button>
-									<button type="button" class="dropdown-item">
+									<button type="button" class="dropdown-item" data-toggle="modal"
+										data-target="#confirmDeleteModal" (click)="prepareConfirmDeleteModal(client)">
 										<i class="fa fa-user-minus"></i>
 										Deletar
 									</button>
@@ -52,4 +69,26 @@
 			</table>
 		</div>
 	</div>
+
+	<div id="confirmDeleteModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>Confirmação</h4>
+				</div>
+				<div class="modal-body" *ngIf="clientToDelete">
+					Confirma a deleção do cliente <b>{{ clientToDelete.name }}</b>?
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-sm btn-primary mr-1" data-dismiss="modal">
+						<i class="fa fa-arrow-left"></i> Voltar
+					</button>
+					<button class="btn btn-sm btn-danger mr-1" data-dismiss="modal" (click)="delete(clientToDelete)">
+						<i class="fa fa-trash"></i> Deletar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
