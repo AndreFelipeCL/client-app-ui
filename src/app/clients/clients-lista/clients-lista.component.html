@@ -3,7 +3,7 @@
 	<li class="breadcrumb-item active">Listagem</li>
 </ol>
 <div class="container">
-	
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
@@ -46,17 +46,17 @@
 						<td>{{client.createdDate}}</td>
 						<td>
 							<div class="dropdown">
-								<button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
+								<button class="btn btn-link-secondary dropdown-toggle btn-sm" type="button"
 									id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="false">
 									Ações
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<button type="button" class="dropdown-item" (click)="edit(client.id)">
+									<button type="button" class="dropdown-item btn-sm" (click)="edit(client.id)">
 										<i class="fa fa-user-edit"></i>
 										Editar
 									</button>
-									<button type="button" class="dropdown-item" data-toggle="modal"
+									<button type="button" class="dropdown-item btn-sm" data-toggle="modal"
 										data-target="#confirmDeleteModal" (click)="prepareConfirmDeleteModal(client)">
 										<i class="fa fa-user-minus"></i>
 										Deletar
