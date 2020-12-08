@@ -18,10 +18,11 @@ export class ServiceOrderFormComponent implements OnInit {
 		private clientService: ClientsService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute
-	) { }
+	) {
+		this.serviceOrder = new ServiceOrder();
+	}
 
 	ngOnInit(): void {
-		this.serviceOrder = new ServiceOrder();
 		this.clientService.findAll().subscribe(
 			response => { this.clients = response; },
 			responseError => { console.log(responseError); this.clients = []; },
@@ -29,6 +30,7 @@ export class ServiceOrderFormComponent implements OnInit {
 	}
 
 	onSubmit() {
+		console.log(this.serviceOrder);
 	}
 
 	returtToList() {

@@ -5,5 +5,5 @@ export class ServiceOrder {
     description: string;
     price: string;
 	providedAt: string;
-	client: Client;
+	clientId: number;
 }
