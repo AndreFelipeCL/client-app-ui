@@ -38,20 +38,19 @@ export class ClientsFormComponent implements OnInit {
 
 	onSubmit() {
 		if (this.client.id) {
-			this.editClient(this.client);
+			this.editClient();
 		} else {
-			this.saveNewClient(this.client);
+			this.saveNewClient();
 		}
 	}
 
-	private editClient(client: Client): void {
+	private editClient(): void {
 		this.service.edit(this.client)
 		.subscribe(
 			response => {
 				this.client = response;
 				this.success = true;
 				this.errors = [];
-				this.returtToList();
 			},
 			errorResponse => {
 				console.error(errorResponse);
@@ -61,14 +60,13 @@ export class ClientsFormComponent implements OnInit {
 		);
 	}
 
-	private saveNewClient(client: Client): void {
+	private saveNewClient(): void {
 		this.service.save(this.client)
 			.subscribe(
 				response => {
 					this.success = true;
 					this.client = response;
 					this.errors = [];
-					this.returtToList();
 				},
 				errorResponse => {
 					console.error(errorResponse);
@@ -78,7 +76,7 @@ export class ClientsFormComponent implements OnInit {
 			);
 	}
 
-	returtToList() {
+	returnToList() {
 		this.router.navigate(['/clients-list']);
 	}
 }

@@ -5,11 +5,13 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { TemplateModule } from './template/template.module';
+import { HomeComponent } from './home/home.component';
+
 import { ClientsService } from './services/clients.service';
 import { ClientsModule } from './clients/clients.module';
 
-import { TemplateModule } from './template/template.module';
-import { HomeComponent } from './home/home.component';
+import { ServiceOrderService } from './services/service-order.service';
 import { ServiceOrderModule } from './service-order/service-order.module';
 
 
@@ -27,7 +29,8 @@ import { ServiceOrderModule } from './service-order/service-order.module';
     ServiceOrderModule
   ],
   providers: [
-    ClientsService
+    ClientsService,
+    ServiceOrderService
   ],
   bootstrap: [
     AppComponent

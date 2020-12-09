@@ -3,31 +3,34 @@ import { HttpClient } from '@angular/common/http'
 
 import { Client } from '../models/client';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment'
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class ClientsService {
 
-  constructor(private http: HttpClient) { }
+	private apiUrl: string = environment.apiURL + '/client';
 
-  save(client: Client): Observable<Client> {
-    return this.http.post<Client>('http://localhost:8090/client', client);
-  }
+	constructor(private http: HttpClient) { }
 
-  edit(client: Client): Observable<any> {
-    return this.http.put<Client>(`http://localhost:8090/client/${client.id}`, client);
-  }
+	save(client: Client): Observable<Client> {
+		return this.http.post<Client>(this.apiUrl, client);
+	}
 
-  delete(client: Client): Observable<any> {
-    return this.http.delete<number>(`http://localhost:8090/client/${client.id}`);
-  }
+	edit(client: Client): Observable<any> {
+		return this.http.put<Client>(`${this.apiUrl}/${client.id}`, client);
+	}
 
-  findAll(): Observable<Client[]> {
-    return this.http.get<Client[]>('http://localhost:8090/client/all');
-  }
+	delete(client: Client): Observable<any> {
+		return this.http.delete<number>(`${this.apiUrl}/${client.id}`);
+	}
 
-  findById(id: number): Observable<Client> {
-    return this.http.get<Client>(`http://localhost:8090/client/${id}`);
-  }
+	findAll(): Observable<Client[]> {
+		return this.http.get<Client[]>(`${this.apiUrl}/all`);
+	}
+
+	findById(id: number): Observable<Client> {
+		return this.http.get<Client>(`${this.apiUrl}/${id}`);
+	}
 }
