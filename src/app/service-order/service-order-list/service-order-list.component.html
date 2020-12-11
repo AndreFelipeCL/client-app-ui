@@ -3,46 +3,82 @@
 	<li class="breadcrumb-item active">Consulta</li>
 </ol>
 <div class="container">
-	<form #searchFilterForm="ngForm" (submit)="searchFilter()" >
-		<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="clientName">Nome do Cliente:</label>
-					<input [(ngModel)]="clientName" type="text" name="clientName" class="form-control" />
-				</div>
-			</div>
+	<div class="row">
+		<div class="col-md-12">
+			<form #searchFilterForm="ngForm" (submit)="searchFilter()">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="clientName">Nome do Cliente:</label>
+							<input [(ngModel)]="clientName" type="text" name="clientName" class="form-control" />
+						</div>
+					</div>
 
-			<div class="col-md-4">
-				<div class="form-grup">
-					<label for="clientName">Mês:</label>
-					<select class="form-control custom-select" id="month" [ngModelOptions]="{standalone: true}"
-						[(ngModel)]="month" required>
-						<option selected disabled="disabled">Selecione o mês...</option>
-						<option *ngFor="let monthOpt of months" [ngValue]="monthOpt">
-							{{ monthOpt }}
-						</option>
-					</select>
-				</div>
-			</div>
+					<div class="col-md-4">
+						<div class="form-grup">
+							<label for="clientName">Mês:</label>
+							<select class="form-control custom-select" id="month" [ngModelOptions]="{standalone: true}"
+								[(ngModel)]="month" required>
+								<option selected disabled="disabled">Selecione o mês...</option>
+								<option *ngFor="let monthOpt of months" [ngValue]="monthOpt">
+									{{ monthOpt }}
+								</option>
+							</select>
+						</div>
+					</div>
 
-			<div class="col-md-4">
-				<div class="form-grup">
-					<label for="clientName">Ano:</label>
-					<input [(ngModel)]="year" type="number" name="year" class="form-control" />
+					<div class="col-md-4">
+						<div class="form-grup">
+							<label for="clientName">Ano:</label>
+							<input [(ngModel)]="year" type="number" name="year" class="form-control" />
+						</div>
+					</div>
 				</div>
+
+				<div class="row float-right">
+					<div class="col-md-12">
+						<div class="form-grup">
+							<label for="searchButton"></label>
+							<button type="submit" class="btn btn-primary form-control" name="searchButton">
+								<i class="fa fa-search"></i> Consultar
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<br />
+
+	<div class="row">
+		<div class="col-md-12 table-responsive"  *ngIf="!message">
+			<table class="table table-sm table-hover" >
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Nome do Cliente</th>
+						<th scope="col">Descrição</th>
+						<th scope="col">Preço</th>
+						<th scope="col">Data do Serviço</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let s of serviceOrderFilterList">
+						<th scope="row">{{ s.id }}</th>
+						<td>{{ s.client.name }}</td>
+						<td>{{ s.description }}</td>
+						<td>{{ s.price }}</td>
+						<td>{{ s.providedAt }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-12" *ngIf="message">
+			<div class="alert alert-info" role="info" >
+				Nenhuma ordem de serviço encontrada.
 			</div>
 		</div>
+	</div>
 
-		<div class="row float-right">
-			<div class="col-md-12">
-				<div class="form-grup">
-					<label for="searchButton"></label>
-					<button type="submit" class="btn btn-primary form-control" name="searchButton">
-						<i class="fa fa-search"></i> Consultar
-					</button>
-				</div>
-			</div>
-		</div>
-
-	</form>
 </div>

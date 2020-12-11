@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceOrderFilter } from 'src/app/models/serviceOrderFilter';
+import { ServiceOrderService } from 'src/app/services/service-order.service';
 
 @Component({
 	selector: 'app-service-order-list',
@@ -11,16 +13,41 @@ export class ServiceOrderListComponent implements OnInit {
 	months: number[];
 	month: number;
 	year: number;
+	serviceOrderFilterList: ServiceOrderFilter[];
+	message: string;
 
-	constructor() {
+	constructor(private service: ServiceOrderService) {
 		this.months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.service.findAll()
+			.subscribe(
+				response => {
+					this.serviceOrderFilterList = response;
+				},
+				responseError => {
+					this.serviceOrderFilterList = [];
+					console.error(responseError);
+				}
+			);
+	}
 
-	searchFilter(){
-		console.log(this.clientName);
-		console.log(this.month);
-		console.log(this.year);
+	searchFilter() {
+		this.service.filter(this.clientName, this.month, this.year)
+			.subscribe(
+				response => {
+					this.serviceOrderFilterList = response;
+					if(this.serviceOrderFilterList.length <= 0){
+						this.message = "Nenhuma order de serviço encontrada.";
+					} else {
+						this.message = null;
+					}
+				},
+				responseError => {
+					this.serviceOrderFilterList = [];
+					console.error(responseError);
+				}
+			);
 	}
 }
