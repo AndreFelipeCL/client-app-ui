@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ServiceOrderFilter } from 'src/app/models/serviceOrderFilter';
 import { ServiceOrderService } from 'src/app/services/service-order.service';
 
@@ -16,7 +17,9 @@ export class ServiceOrderListComponent implements OnInit {
 	serviceOrderFilterList: ServiceOrderFilter[];
 	message: string;
 
-	constructor(private service: ServiceOrderService) {
+	constructor(
+		private service: ServiceOrderService,
+		private router: Router) {
 		this.months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 	}
 
@@ -49,5 +52,9 @@ export class ServiceOrderListComponent implements OnInit {
 					console.error(responseError);
 				}
 			);
+	}
+
+	newServiceOrder() {
+		this.router.navigate(['/service-order-form']);
 	}
 }
