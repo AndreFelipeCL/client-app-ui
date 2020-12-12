@@ -1,0 +1,62 @@
+<div class="" id="layoutAuthentication">
+	<div id="layoutAuthentication_content">
+		<main>
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-5">
+						<div class="card shadow-lg border-0 mt-5">
+							<div class="card-header">
+								<h3 class="text-center font-weight-light my-4">
+									{{ newUser ? 'Cadastro de Usuário' : 'Entrar' }}
+								</h3>
+							</div>
+							<div class="card-body">
+								<div class="alert alert-danger" *ngIf="loginError">
+									Login e/ou Senha incorreto(s).
+								</div>
+
+								<form #loginForm="ngForm" (submit)="onSubmit();">
+									<div class="form-group">
+										<label for="username" class="mb-1">
+											<i class="fas fa-user"></i> Login
+										</label>
+										<input type="text" name="username" id="username" class="form-control py-4"
+											[(ngModel)]="username" placeholder="Login" required="required" />
+									</div>
+									<div class="form-group">
+										<label for="username" class="mb-1">
+											<i class="fas fa-key"></i> Senha
+										</label>
+										<input type="password" name="password" id="password" class="form-control py-4"
+											[(ngModel)]="password" placeholder="Senha" required="required" />
+									</div>
+									<div class="float-left form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+										<button type="button" class="btn btn-outline-primary" *ngIf="newUser" (click)="backToLogin($event);">
+											<i class="fas fa-arrow-left"></i> Voltar ao Login
+										</button>
+									</div>
+									<div class="float-right form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+										<button type="submit" class="btn btn-success" *ngIf="newUser" >
+											<i class="fas fa-sign-in-alt"></i> Cadastrar
+										</button>
+										<button type="submit" class="btn btn-primary" *ngIf="!newUser" [disabled]="!loginForm.valid">
+											<i class="fas fa-sign-in-alt"></i> Login
+										</button>
+									</div>
+								</form>
+							</div>
+							<div class="card-footer text-center" *ngIf="!newUser">
+								<div class="small">
+									<span class="text-center mr-1">Não possui cadastro?</span>
+									<a href="#" (click)="prepareRegister($event);">
+										Cadastre-se aqui
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</div>

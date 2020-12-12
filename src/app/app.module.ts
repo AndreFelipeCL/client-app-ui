@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,12 +14,16 @@ import { ClientsModule } from './clients/clients.module';
 
 import { ServiceOrderService } from './services/service-order.service';
 import { ServiceOrderModule } from './service-order/service-order.module';
+import { LoginComponent } from './login/login.component';
+import { LayoutComponent } from './layout/layout.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +31,8 @@ import { ServiceOrderModule } from './service-order/service-order.module';
     AppRoutingModule,
     TemplateModule,
     ClientsModule,
-    ServiceOrderModule
+    ServiceOrderModule,
+    FormsModule
   ],
   providers: [
     ClientsService,

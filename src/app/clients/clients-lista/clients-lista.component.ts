@@ -33,11 +33,11 @@ export class ClientsListaComponent implements OnInit {
 	}
 
 	newClient() {
-		this.router.navigate(['/clients-form']);
+		this.router.navigate(['/client/form']);
 	}
 
 	edit(id: number) {
-		this.router.navigate([`/clients-form/${id}`]);
+		this.router.navigate([`/client/form/${id}`]);
 	}
 
 	prepareConfirmDeleteModal(client: Client) {

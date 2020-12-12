@@ -75,6 +75,6 @@ export class ServiceOrderFormComponent implements OnInit {
 	}
 
 	returnToList() {
-		this.router.navigate(['/service-order-list']);
+		this.router.navigate(['/service-order/list']);
 	}
 }
