@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
-
-import { Client } from '../models/client';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
+import { Client } from '../models/client';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -12,7 +12,9 @@ export class ClientsService {
 
 	private apiUrl: string = environment.apiURL + '/client';
 
-	constructor(private http: HttpClient) { }
+	constructor(
+		private http: HttpClient,
+	) { }
 
 	save(client: Client): Observable<Client> {
 		return this.http.post<Client>(this.apiUrl, client);
