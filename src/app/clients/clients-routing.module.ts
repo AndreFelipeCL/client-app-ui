@@ -5,13 +5,17 @@ import { LayoutComponent } from '../layout/layout.component';
 import { ClientsFormComponent } from './clients-form/clients-form.component'
 import { ClientsListaComponent } from './clients-lista/clients-lista.component';
 
+import { AuthGuard } from '../guard/auth.guard';
+
 const routes: Routes = [
-	{ path: 'client', component: LayoutComponent, children: [
-		{ path: 'form', component: ClientsFormComponent },
-		{ path: 'form/:id', component: ClientsFormComponent },
-		{ path: 'list', component: ClientsListaComponent },
-		{ path: '', redirectTo: '/client/list', pathMatch: 'full' }
-	]}
+	{
+		path: 'client', component: LayoutComponent, canActivate: [AuthGuard], children: [
+			{ path: '', redirectTo: '/client/list', pathMatch: 'full' },
+			{ path: 'form', component: ClientsFormComponent },
+			{ path: 'form/:id', component: ClientsFormComponent },
+			{ path: 'list', component: ClientsListaComponent }
+		]
+	}
 ];
 
 @NgModule({

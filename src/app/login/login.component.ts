@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent {
 
 	username: string = 'andrefelipecl92';
-	password: string = 'senha123';
+	password: string = '123';
 	loginError: boolean = false;
 	newUser: boolean = false;
 	successMessage: string = null;
