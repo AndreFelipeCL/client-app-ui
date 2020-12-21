@@ -26,11 +26,19 @@
                     Ordem de Serviço
                 </a>
 
+                <div class="sb-sidenav-menu-heading">Logout</div>
+                <a class="nav-link" data-toggle="collapse" (click)="logout($event);" href="#"
+                    data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    Logout
+                </a>
             </div>
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Start Bootstrap
+            {{ loggedUser }}
         </div>
     </nav>
 </div>

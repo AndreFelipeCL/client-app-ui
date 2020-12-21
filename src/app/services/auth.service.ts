@@ -10,12 +10,14 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
+	readonly ACCESS_TOKEN: string = 'access_token';
+
 	private readonly apiUrl: string = environment.apiURL + '/user';
 	private readonly tokenUrl: string = environment.apiURL + environment.tokenUrl;
 	private readonly clientId: string = environment.clientId;
 	private readonly clientSecret: string = environment.clientSecret;
 	private jwtHelperService: JwtHelperService = new JwtHelperService();
-
+	
 	constructor(
 		private http: HttpClient
 	) { }
@@ -47,10 +49,22 @@ export class AuthService {
 	}
 
 	retrieveToken(){
-		const tokenAsString = localStorage.getItem('access_token');
+		const tokenAsString = localStorage.getItem(this.ACCESS_TOKEN);
 		if (!tokenAsString) {
 			return null;
 		}
 		return JSON.parse(tokenAsString).access_token;
+	}
+
+	endSession(){
+		localStorage.removeItem(this.ACCESS_TOKEN);
+	}
+
+	getAuthenticatedUser(): string{
+		const token = this.retrieveToken();
+		if(!token){
+			return null;
+		}
+		return this.jwtHelperService.decodeToken(token).user_name;
 	}
 }

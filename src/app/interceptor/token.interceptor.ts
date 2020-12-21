@@ -1,19 +1,12 @@
-import {
-	HttpEvent, HttpHandler,
-
-	HttpInterceptor, HttpRequest
-} from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-	private headers: any = null;
-
 	constructor(
-		private router: Router
 	) { }
 
 	intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -22,7 +15,9 @@ export class TokenInterceptor implements HttpInterceptor {
 
 	private cloneRequestWithBearerTokenOnHeader(request: HttpRequest<unknown>) {
 		const token = localStorage.getItem('access_token');
-		if (token) {
+		const url = request.url;
+
+		if (!url.endsWith(environment.tokenUrl) && token) {
 			const jsonToken = JSON.parse(token);
 			const jwt = jsonToken.access_token;
 
@@ -32,7 +27,7 @@ export class TokenInterceptor implements HttpInterceptor {
 				}
 			});
 		}
- 
+
 		return request;
 	}
 }
